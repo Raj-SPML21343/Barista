@@ -22,9 +22,9 @@ def svrg_comparison(dataset_name):
     idx = T.ivector()
     grad = aesara.function(inputs=[par, idx], outputs=T.grad(loss, wrt=par), givens={data: data[idx, :]})
 
-    MAX_EPOCH = 25
+    MAX_EPOCH = 50
 
-    _, fvals_bb1, stepsizes_bb1 = svrg_bb(grad, 1e-3, n, d, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_bb1, stepsizes_bb1 = svrg_bb(grad, 0.1, n, d, func=func, max_epoch=MAX_EPOCH, retFvals=True)
     _, fvals_bb2, stepsizes_bb2 = svrg_bb(grad, 1, n, d, func=func, max_epoch=MAX_EPOCH, retFvals=True)
     _, fvals_bb3, stepsizes_bb3 = svrg_bb(grad, 10, n, d, func=func, max_epoch=MAX_EPOCH, retFvals=True)
 
@@ -32,12 +32,12 @@ def svrg_comparison(dataset_name):
     _, fvals_cst2, stepsizes_cst2 = svrg_cst(grad, 0.1, n, d, func=func, max_epoch=MAX_EPOCH, retFvals=True)
     _, fvals_cst3, stepsizes_cst3 = svrg_cst(grad, 0.02, n, d, func=func, max_epoch=MAX_EPOCH, retFvals=True)
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(8, 4))
     plt.subplot(1, 2, 1)
     plt.plot(fvals_cst1 - fvals_bb1[-1], '--', label = r'$\eta_k = 0.5$')
     plt.plot(fvals_cst2 - fvals_bb1[-1],  '--', label = r'$\eta_k = 0.1$')
     plt.plot(fvals_cst3 - fvals_bb1[-1], '--', label = r'$\eta_k = 0.02$')
-    plt.plot(fvals_bb1 - fvals_bb1[-1], label = r'$\eta_0 = 0.001$')
+    plt.plot(fvals_bb1 - fvals_bb1[-1], label = r'$\eta_0 = 0.1$')
     plt.plot(fvals_bb2 - fvals_bb1[-1], label = r'$\eta_0 = 1$')
     plt.plot(fvals_bb3 - fvals_bb1[-1], label = r'$\eta_0 = 10$')
     plt.yscale("log")
@@ -45,6 +45,13 @@ def svrg_comparison(dataset_name):
     plt.ylim([10**(-14), 10**0])
     plt.title("Sub-optimality of SVRG for " + dataset_name)
     plt.legend()
+
+    y_limits = {
+            "w8a" : [10**(-4), 10**(1)],
+            "ijcnn1" : [10**(-4), 10**(0)],
+            "rcv1.binary" : [10**(-1), 10**(1)]
+            }
+
 
     plt.subplot(1, 2, 2)
     plt.plot(stepsizes_cst1, '--', label = r'$\eta_k = 0.5$')
@@ -54,10 +61,12 @@ def svrg_comparison(dataset_name):
     plt.plot(stepsizes_bb2, label = r'$\eta_0 = 1$')
     plt.plot(stepsizes_bb3, label = r'$\eta_0 = 10$')
     plt.xlim([0, 25])
-    plt.ylim([10**(-2), 10**(2)])
+    plt.ylim(y_limits[dataset_name])
+    plt.yscale("log")
     plt.title("Step sizes of SVRG for " + dataset_name)
     plt.legend()
 
+    plt.savefig("./results/svrg_comparison_{}.png".format(dataset_name))
     plt.show()
 
     return
