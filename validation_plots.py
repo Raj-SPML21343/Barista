@@ -9,7 +9,9 @@ def svrg_comparison(dataset_name):
 
     n, d, data, A_train, A_test, y_train, y_test = get_data(dataset_name)
 
-    l2 = 1e-2
+    lambdas = {"w8a" : 1e-4, "ijcnn1" : 1e-4, "rcv1.binary" : 1e-5}
+
+    l2 = lambdas[dataset_name]
     par = T.vector()
 
     if dataset_name == "ijcnn1":
@@ -46,18 +48,13 @@ def svrg_comparison(dataset_name):
     plt.title("Sub-optimality of SVRG for " + dataset_name)
     plt.legend()
 
-    y_limits = {
-            "w8a" : [10**(-4), 10**(1)],
-            "ijcnn1" : [10**(-4), 10**(0)],
-            "rcv1.binary" : [10**(-1), 10**(1)]
-            }
-
+    y_limits = {"w8a" : [10**(-4), 10**(1)], "ijcnn1" : [10**(-4), 10**(0)], "rcv1.binary" : [10**(-1), 10**(1)]}
 
     plt.subplot(1, 2, 2)
     plt.plot(stepsizes_cst1, '--', label = r'$\eta_k = 0.5$')
     plt.plot(stepsizes_cst2,  '--', label = r'$\eta_k = 0.1$')
     plt.plot(stepsizes_cst3, '--', label = r'$\eta_k = 0.02$')
-    plt.plot(stepsizes_bb1, label = r'$\eta_0 = 0.001$')
+    plt.plot(stepsizes_bb1, label = r'$\eta_0 = 0.1$')
     plt.plot(stepsizes_bb2, label = r'$\eta_0 = 1$')
     plt.plot(stepsizes_bb3, label = r'$\eta_0 = 10$')
     plt.xlim([0, 25])
