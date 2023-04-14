@@ -1,0 +1,4 @@
+numpy
+aesara
+scipy
+scikit-learn

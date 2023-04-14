@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+logo/
+data/rcv1.binary_test.bz2
