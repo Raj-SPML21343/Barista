@@ -26,13 +26,13 @@ def svrg_comparison(dataset_name):
 
     MAX_EPOCH = 50
 
-    _, fvals_bb1, stepsizes_bb1 = svrg_bb(grad, 0.1, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_bb2, stepsizes_bb2 = svrg_bb(grad, 1, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_bb3, stepsizes_bb3 = svrg_bb(grad, 10, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_bb1, stepsizes_bb1 = svrg_bb(grad, 0.1, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_bb2, stepsizes_bb2 = svrg_bb(grad, 1, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_bb3, stepsizes_bb3 = svrg_bb(grad, 10, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
 
-    _, fvals_cst1, stepsizes_cst1 = svrg_cst(grad, 0.5, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_cst2, stepsizes_cst2 = svrg_cst(grad, 0.1, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_cst3, stepsizes_cst3 = svrg_cst(grad, 0.02, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_cst1, stepsizes_cst1 = svrg_cst(grad, 0.5, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_cst2, stepsizes_cst2 = svrg_cst(grad, 0.1, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_cst3, stepsizes_cst3 = svrg_cst(grad, 0.02, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
 
     plt.figure(figsize=(8, 4))
     plt.subplot(1, 2, 1)
@@ -90,13 +90,13 @@ def sgd_comparison(dataset_name):
 
     MAX_EPOCH = 50
 
-    _, fvals_bb1, stepsizes_bb1 = sgd_bb(grad, 0.1, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_bb2, stepsizes_bb2 = sgd_bb(grad, 1, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_bb3, stepsizes_bb3 = sgd_bb(grad, 10, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_bb1, stepsizes_bb1 = sgd_bb(grad, 0.1, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_bb2, stepsizes_bb2 = sgd_bb(grad, 1, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_bb3, stepsizes_bb3 = sgd_bb(grad, 10, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
 
-    _, fvals_cst1, stepsizes_cst1 = sgd_cst(grad, 0.01, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_cst2, stepsizes_cst2 = sgd_cst(grad, 0.1, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
-    _, fvals_cst3, stepsizes_cst3 = sgd_cst(grad, 1, n, d, m = 2*n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_cst1, stepsizes_cst1 = sgd_cst(grad, 0.01, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_cst2, stepsizes_cst2 = sgd_cst(grad, 0.1, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
+    _, fvals_cst3, stepsizes_cst3 = sgd_cst(grad, 1, n, d, m = n, func=func, max_epoch=MAX_EPOCH, retFvals=True)
 
     plt.figure(figsize=(8, 4))
     plt.subplot(1, 2, 1)
