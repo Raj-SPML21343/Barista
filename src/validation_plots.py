@@ -108,8 +108,8 @@ def sgd_comparison(dataset_name):
     plt.plot(fvals_bb3 - fvals_bb1[-1], label = r'$\eta_0 = 10$')
     plt.yscale("log")
     plt.xlim([0, 25])
-    plt.ylim([10**(-14), 10**0])
-    plt.title("Sub-optimality of SVRG for " + dataset_name)
+    # plt.ylim([10**(-14), 10**0])
+    plt.title("Sub-optimality of SGD for " + dataset_name)
     plt.legend()
 
     y_limits = {"w8a" : [10**(-4), 10**(1)], "ijcnn1" : [10**(-4), 10**(0)], "rcv1.binary" : [10**(-1), 10**(1)]}
@@ -124,7 +124,7 @@ def sgd_comparison(dataset_name):
     plt.xlim([0, 25])
     plt.ylim(y_limits[dataset_name])
     plt.yscale("log")
-    plt.title("Step sizes of SVRG for " + dataset_name)
+    plt.title("Step sizes of SGD for " + dataset_name)
     plt.legend()
 
     plt.savefig("./results/sgd_comparison_{}.png".format(dataset_name))
