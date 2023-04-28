@@ -10,10 +10,6 @@ def svrg_bb(grad, init_step_size, n, d, max_epoch=100, m=0, x0=None, func=None, 
 
     if x0 is None:
         x = np.zeros(d)
-    elif isinstance(x0, np.ndarray) and x0.shape == (d, ):
-        x = x0.copy()
-    else:
-        raise ValueError('x_0 must be a np array of size (d, )')
 
     fvals = []
     step_sizes = []
@@ -33,8 +29,7 @@ def svrg_bb(grad, init_step_size, n, d, max_epoch=100, m=0, x0=None, func=None, 
         last_full_grad = full_grad
         last_x_tilde = x_tilde
         if verbose:
-            output = 'Epoch.: %d, Step size: %.2e, Gradient norm: %.2e' % \
-                     (k, step_size, np.linalg.norm(full_grad))
+            output = 'Epoch.: %d, Step size: %.2e' % (k, step_size)
             if func is not None:
                 output += ', Function value: %e' % func(x)
                 step_sizes.append(step_size)
@@ -62,10 +57,6 @@ def svrg_cst(grad, init_step_size, n, d, max_epoch=100, m=0, x0=None, func=None,
 
     if x0 is None:
         x = np.zeros(d)
-    elif isinstance(x0, np.ndarray) and x0.shape == (d, ):
-        x = x0.copy()
-    else:
-        raise ValueError('x_0 must be a np array of size (d, )')
 
     fvals = []
     step_sizes = []
@@ -78,8 +69,7 @@ def svrg_cst(grad, init_step_size, n, d, max_epoch=100, m=0, x0=None, func=None,
         last_full_grad = full_grad
         last_x_tilde = x_tilde
         if verbose:
-            output = 'Epoch.: %d, Step size: %.2e, Gradient norm: %.2e' % \
-                     (k, step_size, np.linalg.norm(full_grad))
+            output = 'Epoch.: %d, Step size: %.2e' % (k, step_size)
             if func is not None:
                 output += ', Function value: %e' % func(x)
                 step_sizes.append(step_size)
@@ -109,10 +99,6 @@ def sgd_bb(grad, init_step_size, n, d, max_epoch=100, m=None, x0=None, beta=None
 
     if x0 is None:
         x = np.zeros(d)
-    elif isinstance(x0, np.ndarray) and x0.shape == (d, ):
-        x = x0.copy()
-    else:
-        raise ValueError('x_0 must be a np array of size (d, )')
 
     fvals = []
     step_sizes = []
@@ -128,14 +114,13 @@ def sgd_bb(grad, init_step_size, n, d, max_epoch=100, m=None, x0=None, beta=None
                 step_size = step_size
             else:
                 step_size = np.linalg.norm(s)**2 / abs(np.dot(s, y)) / m
-            if phi is not None:
+            if phi is not None: # In Section 4.2, the authors mention they choose \phi(k) = 1. (denoted by lambda k : k)
                 c = c ** ((k-2)/(k-1)) * (step_size*phi(k)) ** (1/(k-1))
                 step_size = c / phi(k)
 
         if verbose:
             full_grad = grad(x, range(n))
-            output = 'Epoch.: %d, Step size: %.2e, Gradient norm: %.2e' % \
-                     (k, step_size, np.linalg.norm(full_grad))
+            output = 'Epoch.: %d, Step size: %.2e' % (k, step_size)
             if func is not None:
                 output += ', Function value: %e' % func(x)
                 step_sizes.append(step_size)
@@ -174,10 +159,6 @@ def sgd_cst(grad, init_step_size, n, d, max_epoch=100, m=None, x0=None, beta=Non
 
     if x0 is None:
         x = np.zeros(d)
-    elif isinstance(x0, np.ndarray) and x0.shape == (d, ):
-        x = x0.copy()
-    else:
-        raise ValueError('x_0 must be a np array of size (d, )')
 
     fvals = []
     step_sizes = []
@@ -190,8 +171,7 @@ def sgd_cst(grad, init_step_size, n, d, max_epoch=100, m=None, x0=None, beta=Non
 
         if verbose:
             full_grad = grad(x, range(n))
-            output = 'Epoch.: %d, Step size: %.2e, Gradient norm: %.2e' % \
-                     (k, step_size, np.linalg.norm(full_grad))
+            output = 'Epoch.: %d, Step size: %.2e' % (k, step_size)
             if func is not None:
                 output += ', Function value: %e' % func(x)
                 step_sizes.append(step_size)

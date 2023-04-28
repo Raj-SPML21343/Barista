@@ -1,7 +1,7 @@
 import aesara
 import aesara.tensor as T
 from libsvm_dataset_helper import get_data
-from sgd import svrg_bb, svrg_cst, sgd_bb#, sgd_cst
+from sgd import svrg_bb, svrg_cst, sgd_bb, sgd_cst
 import matplotlib.pyplot as plt
 
 def svrg_comparison(dataset_name):
@@ -177,7 +177,8 @@ def variation_of_m(dataset_name):
     return
 
 if __name__ == "__main__":
-    svrg_comparison("w8a")
+    print("Remember to uncomment the required validation plot before running this function")
+    # svrg_comparison("w8a")
     # svrg_comparison("ijcnn1")
     # svrg_comparison("rcv1.binary")
 
